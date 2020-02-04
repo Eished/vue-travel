@@ -60,14 +60,6 @@ export default {
         id: '0008',
         imgUrl: '//s.qunarzz.com/homenode/images/touchheader/package.png',
         desc: '度假'
-      }, {
-        id: '0009',
-        imgUrl: '//s.qunarzz.com/homenode/images/touchheader/package.png',
-        desc: '度假'
-      }, {
-        id: '0010',
-        imgUrl: '//s.qunarzz.com/homenode/images/touchheader/package.png',
-        desc: '度假'
       }]
     }
   },
