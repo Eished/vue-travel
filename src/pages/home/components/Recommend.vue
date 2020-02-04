@@ -25,6 +25,9 @@
 <script>
 export default {
   name: 'HomeRecommend',
+  props: {
+    recommendList: Array
+  },
   data () {
     return {
       saleList: [{
@@ -51,6 +54,12 @@ export default {
         desc: '确认后100%出行🎉赠一晚酒店💕上海🛫名古屋5-7日自由行🎁代办签证',
         price: '799',
         imgUrl: 'https://imgs.qunarzz.com/p/tts4/1809/9d/f8db3b5cb0007702.jpg_r_480x320x90_2f6b0821.jpg'
+      }, {
+        id: '0005',
+        title: '上海当地游 1天跟团游',
+        desc: '上海经典一日游!上海东方明珠+外滩+黄浦江游轮高端纯玩一日游! 日/夜游可选',
+        price: '209',
+        imgUrl: 'https://imgs.qunarzz.com/vs_ceph_vs_tts/bb4e26c0-2d6b-43f4-a525-2b1e14875ae4.jpg_r_480x320x90_bbfe8901.jpg'
       }]
     }
   }
@@ -84,14 +93,14 @@ export default {
     color #757575
 .on-sales
   width 100%
-  height 50%
+  // height 50%
   overflow hidden
   position relative
   .on-sale
     overflow hidden
     float left
     width 46%
-    height 48.7%
+    // height 48.7%
     margin-left 2.7%
     margin-top 0.1rem
     .on-sale-img

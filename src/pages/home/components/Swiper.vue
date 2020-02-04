@@ -1,6 +1,7 @@
 <template>
   <div class="wrapper">
-    <swiper :options="swiperOption">
+    <swiper :options="swiperOption"
+            v-if="show">
       <!-- slides -->
       <swiper-slide v-for="item of swiperList"
                     :key="item.id">
@@ -17,21 +18,25 @@
 <script>
 export default {
   name: 'HomeSwiper',
+  props: {
+    swiperList: Array
+  },
   data () {
     return {
       swiperOption: {
         // some swiper options/callbacks
         // 所有的参数同 swiper 官方 api 参数
         pagination: '.swiper-pagination',
-        loop: true
-      },
-      swiperList: [{
-        id: '0001',
-        imgUrl: 'https://imgs.qunarzz.com/vc/24/36/10/3fc94d042ae62de380581d4c98.jpg_92.jpg'
-      }, {
-        id: '0002',
-        imgUrl: 'https://imgs.qunarzz.com/vc/44/e9/86/95bc36c9e1c06ebd68bdfe222e.jpg_92.jpg'
-      }]
+        autoplay: 2000, // 可设置数值来指定播放速度
+        autoplayDisableOnInteraction: false, // 用户操作swiper之后，是否禁止autoplay
+        speed: 400, // 切换图片速度
+        loop: true // 循环播放
+      }
+    }
+  },
+  computed: {
+    show () {
+      return this.swiperList.length
     }
   }
 }

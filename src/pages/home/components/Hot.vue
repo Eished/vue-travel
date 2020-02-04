@@ -23,6 +23,9 @@
 <script>
 export default {
   name: 'HomeHot',
+  props: {
+    hotList: Array
+  },
   data () {
     return {
       saleList: [{
