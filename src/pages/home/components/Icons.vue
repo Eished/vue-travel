@@ -50,11 +50,11 @@ export default {
         desc: '酒店'
       }, {
         id: '0006',
-        imgUrl: 'https://picbed.qunarzz.com/1316dc82d1ce6259686d5a68880e5a9d.png',
+        imgUrl: '//s.qunarzz.com/homenode/images/touchheader/hotel.png',
         desc: '攻略'
       }, {
         id: '0007',
-        imgUrl: 'https://picbed.qunarzz.com/ae617a31e0bd5803d76918b817f6d942.png',
+        imgUrl: '//s.qunarzz.com/homenode/images/touchheader/hotel.png',
         desc: '自由行'
       }, {
         id: '0008',
@@ -93,6 +93,8 @@ export default {
 .icons >>> .swiper-container
   height 0
   padding-bottom 50%
+.icons
+  margin-top 0.2rem
   .icon
     position relative
     width 25%
@@ -105,7 +107,7 @@ export default {
       top 0
       left 0
       right 0
-      bottom 0.44rem
+      bottom 0.55rem
       box-sizing border-box
       padding 0.1rem
       .icon-img-content
@@ -116,7 +118,7 @@ export default {
       position absolute
       left 0
       right 0
-      bottom 0
+      bottom 0.1rem
       height 0.44rem
       padding 0 0.1rem 0 0.1rem
       line-height 0.44rem
