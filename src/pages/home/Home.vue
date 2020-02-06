@@ -17,6 +17,7 @@ import HomeRecommend from './components/Recommend'
 import HomeHot from './components/Hot'
 import HomeFooter from './components/Footer'
 import axios from 'axios'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Home',
@@ -38,7 +39,7 @@ export default {
   },
   methods: {
     async getHomeInfo () {
-      var res = await axios.get('/api/index.json')
+      var res = await axios.get('/api/index.json?city=' + this.city)
       res = res.data
       if (res.ret && res.data) {
         const data = res.data
@@ -50,7 +51,17 @@ export default {
     }
   },
   mounted () {
+    this.lastCity = this.city
     this.getHomeInfo()
+  },
+  activated () {
+    if (this.city !== this.lastCity) {
+      this.lastCity = this.city
+      this.getHomeInfo()
+    }
+  },
+  computed: {
+    ...mapState(['city'])
   }
 }
 </script>
