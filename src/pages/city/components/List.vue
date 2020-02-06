@@ -6,7 +6,7 @@
         <div class="title border-topbottom">当前城市</div>
         <div class="button-list">
           <div class="button-wrapper">
-            <div class="button">北京</div>
+            <div class="button">{{this.currentCity}}</div>
           </div>
         </div>
       </div>
@@ -15,7 +15,8 @@
         <div class="button-list">
           <div class="button-wrapper"
                v-for="item of hotCities"
-               :key="item.id">
+               :key="item.id"
+               @click="handleCityClick(item.name)">
             <div class="button">{{item.name}}</div>
           </div>
         </div>
@@ -28,7 +29,8 @@
         <div class="item-list"
              v-for="inneritem of item"
              :key="inneritem.id">
-          <div class="item border-bottom">{{inneritem.name}}</div>
+          <div class="item border-bottom"
+               @click="handleCityClick(inneritem.name)">{{inneritem.name}}</div>
         </div>
       </div>
     </div>
@@ -37,12 +39,24 @@
 
 <script>
 import BScroll from 'better-scroll'
+import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'CityList',
   props: {
     hotCities: { Array, Object },
     cities: Object,
     letter: String
+  },
+  methods: {
+    handleCityClick (city) {
+      // this.$store.dispatch('changeCity', city)
+      // 简单数据直接 commit, 异步函数使用 dispatch
+      // this.$store.commit('changeCity', city)
+      this.changeCity(city)
+      this.$router.push('/')
+    },
+    // 使用映射写法, commit 映射到 changeCity
+    ...mapMutations(['changeCity'])
   },
   mounted () {
     this.scroll = new BScroll(this.$refs.wrapper)
@@ -54,6 +68,13 @@ export default {
         this.scroll.scrollToElement(element, 100)
       }
     }
+  },
+  computed: {
+    // 公用数据映射到计算属性中
+    ...mapState({
+      // 重新命名
+      currentCity: 'city'
+    })
   }
 }
 </script>
