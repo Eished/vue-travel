@@ -65,7 +65,7 @@ export default {
     // height 0
     width 100%
     // padding-bottom 100%
-    background white
+    // background white
     .gallary-img
       width 100%
   .swiper-pagination
