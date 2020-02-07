@@ -39,7 +39,6 @@ export default {
     },
     handleGallaryClose () {
       this.showGallary = false
-      console.log('1')
     }
   }
 }
