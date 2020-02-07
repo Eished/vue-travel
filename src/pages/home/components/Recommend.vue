@@ -5,9 +5,11 @@
       <span class="more-discount">更多特惠 ></span>
     </div>
     <div class="on-sales">
-      <div class="on-sale"
-           v-for="item of saleList"
-           :key="item.id">
+      <router-link tag="div"
+                   :to="'/detail/'+item.id"
+                   class="on-sale"
+                   v-for="item of saleList"
+                   :key="item.id">
         <div class="on-sale-img">
           <img class="sale-img"
                :src="item.imgUrl">
@@ -17,7 +19,7 @@
           <p class="sale-desc">{{item.desc}}</p>
           <div class="sale-price"><em>¥{{item.price}}</em><em class="sale-price-desc"> 起</em></div>
         </div>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>

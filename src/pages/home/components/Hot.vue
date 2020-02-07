@@ -4,9 +4,11 @@
       <span class="hot"><span>✈</span>当季热门度假</span>
     </div>
     <div class="on-sales">
-      <div class="on-sale"
-           v-for="item of saleList"
-           :key="item.id">
+      <router-link tag="div"
+                   :to="'/hotDetail/'+item.id"
+                   class="on-sale"
+                   v-for="item of saleList"
+                   :key="item.id">
         <div class="on-sale-img">
           <img class="sale-img"
                :src="item.imgUrl">
@@ -15,7 +17,7 @@
           <p class="sale-title">{{item.title}}</p>
           <div class="sale-price"><em>¥{{item.price}}</em></div>
         </div>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>
