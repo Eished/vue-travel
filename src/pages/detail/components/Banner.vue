@@ -12,15 +12,18 @@
           <span class="iconfont banner-icon">&#xe62e;</span>{{this.bannerImgs.length}}</div>
       </div>
     </div>
-    <common-gallary :imgs="bannerImgs"
-                    v-show="showGallary"
-                    @close="handleGallaryClose">
-    </common-gallary>
+    <fade-animation>
+      <common-gallary :imgs="bannerImgs"
+                      v-show="showGallary"
+                      @close="handleGallaryClose">
+      </common-gallary>
+    </fade-animation>
   </div>
 </template>
 
 <script>
 import CommonGallary from 'common/gallary/Gallary'
+import FadeAnimation from 'common/fade/Fade'
 
 export default {
   name: 'detailBanner',
@@ -31,12 +34,12 @@ export default {
   },
   data () {
     return {
-      showGallary: false,
-      imgs: ['https://img1.qunarzz.com/p/tts3/201406/18/55cf3e1e86f781b0c8d65eac.jpg_r_1280x840x90_3c2ab527.jpg', 'https://img1.qunarzz.com/p/tts9/201406/18/8b1ce3f39ef6837bc8d65eac.jpg_r_640x420x90_17f7b3ff.jpg']
+      showGallary: false
     }
   },
   components: {
-    CommonGallary
+    CommonGallary,
+    FadeAnimation
   },
   methods: {
     handleBannerClick () {
