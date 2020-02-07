@@ -4,15 +4,15 @@
          @click="handleBannerClick">
       <div class="banner-img-box">
         <img class="banner-img"
-             src="https://img1.qunarzz.com/p/tts6/1807/bb/83a45651a3b7a02.jpg_r_640x420x90_899fe65f.jpg">
+             :src="this.bannerImg">
       </div>
       <div class="banner-info">
-        <div class="banner-title">洪崖洞轻轨穿楼+峨眉山船游乐山大佛+夜览长江</div>
+        <div class="banner-title">{{this.sightName}}</div>
         <div class="banner-number">
-          <span class="iconfont banner-icon">&#xe62e;</span>85</div>
+          <span class="iconfont banner-icon">&#xe62e;</span>{{this.bannerImgs.length}}</div>
       </div>
     </div>
-    <common-gallary :imgs="imgs"
+    <common-gallary :imgs="bannerImgs"
                     v-show="showGallary"
                     @close="handleGallaryClose">
     </common-gallary>
@@ -24,6 +24,11 @@ import CommonGallary from 'common/gallary/Gallary'
 
 export default {
   name: 'detailBanner',
+  props: {
+    sightName: String,
+    bannerImg: String,
+    bannerImgs: Array
+  },
   data () {
     return {
       showGallary: false,

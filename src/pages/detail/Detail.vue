@@ -1,6 +1,8 @@
 <template>
   <div>
-    <detail-banner></detail-banner>
+    <detail-banner :sightName="sightName"
+                   :bannerImg="bannerImg"
+                   :bannerImgs="gallaryImgs"></detail-banner>
     <detail-header></detail-header>
     <div class="content">
       <detail-list :list="list"></detail-list>
@@ -12,6 +14,7 @@
 import DetailBanner from './components/Banner'
 import DetailHeader from './components/Header'
 import DetailList from './components/List'
+import axios from 'axios'
 
 export default {
   name: 'detail',
@@ -22,23 +25,37 @@ export default {
   },
   data () {
     return {
-      list: [{
-        title: '成人票',
-        children: [{
-          title: '成人三馆联票',
-          children: [{
-            title: '成人三馆联票 - 某连锁店'
-          }]
-        }, {
-          title: '成人五馆联票'
-        }]
-      }, {
-        title: '学生票'
-      }, {
-        title: '儿童票'
-      }, {
-        title: '特惠票'
-      }]
+      list: [],
+      sightName: '',
+      bannerImg: '',
+      gallaryImgs: [],
+      id: null
+    }
+  },
+  methods: {
+    async getDetailInfo () {
+      // let res = await axios.get('/api/detail.json?id=' + this.$route.params.id)
+      let res = await axios.get('/api/detail.json', {
+        params: {
+          id: this.$route.params.id
+        }
+      })
+      res = res.data
+      if (res.ret && res.data) {
+        this.list = res.data.categoryList
+        this.sightName = res.data.sightName
+        this.bannerImg = res.data.bannerImg
+        this.gallaryImgs = res.data.gallaryImgs
+        this.id = this.$route.params.id
+      }
+    }
+  },
+  mounted () {
+    this.getDetailInfo()
+  },
+  activated () {
+    if (this.id !== this.$route.params.id && this.id !== null) {
+      this.getDetailInfo()
     }
   }
 }
