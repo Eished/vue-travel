@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>5.4.vue中的动画与velocity.js结合</title>
+  <script src="./vue.js"></script>
+  <script src="./velocity.min.js"></script>
+</head>
+
+<body>
+  <div id="root">
+    <!-- before-leave/ leave/ after-leave/ 用法与 enter 一致 -->
+    <button @click="show=!show">{{show}}</button>
+    <transition name="fade" @before-enter="handlBeforeEnter" @enter="handleEnter" @after-enter="handleAfterEnter">
+      <p v-if="show">Hello</p>
+    </transition>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: "#root",
+      data: {
+        show: true
+      },
+      methods: {
+        handlBeforeEnter: function (el) {
+          el.style.opacity = 0
+        },
+        handleEnter: function (el, done) {
+          Velocity(el, {
+            opacity: 1
+          }, {
+            duration: 1000,
+            complete: done
+          })
+        },
+        handleAfterEnter: function (el) {
+          console.log("done");
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

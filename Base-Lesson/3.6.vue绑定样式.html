@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>3.5.getter和setter</title>
+  <script src="./vue.js"></script>
+  <style>
+    .activated {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <!-- class 的对象绑定 -->
+    <div @click="handleDivClick" :class="{activated: isActivated}">Hello World</div>
+
+    <!-- class 显示数组内变量的值,可以动态添加类 -->
+    <div @click="handleDivClick" :class="[activated, one]">Hello World</div>
+
+    <!-- style 方式改变样式 -->
+    <div :style="styleObj" @click="handleDivClick">Hello World</div>
+
+    <!-- style 样式由数组里的对象决定,可以添加多个对象 -->
+    <div :style="[styleObj,{fontSize:'20px'}]" @click="handleDivClick">Hello World</div>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        isActivated: false,
+        activated: "",
+        one: "ac-one",
+        styleObj: {
+          color: ""
+        }
+      },
+      methods: {
+        handleDivClick: function () {
+          // 1
+          this.isActivated = !this.isActivated
+          // 2
+          if (this.activated === "") {
+            this.activated = "activated"
+          } else {
+            this.activated = ""
+          }
+          // 3
+          if (this.styleObj.color === "") {
+            this.styleObj.color = "red"
+          } else {
+            this.styleObj.color = ""
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

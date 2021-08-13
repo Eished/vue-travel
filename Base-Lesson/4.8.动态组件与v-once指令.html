@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>动态组件与v-once指令</title>
+  <script src="./vue.js"></script>
+</head>
+
+<body>
+  <div id="root">
+    <!-- 动态组件 -->
+    <component :is="type"></component>
+    <!-- 每次会销毁,性能不如动态组件 -->
+    <!-- 使用 v-once 指令,把组件存入内存中而不销毁,提高效率 -->
+    <child-one v-if="type==='child-one'"></child-one>
+    <child-two v-if="type==='child-two'"></child-two>
+    <button @click="handleBtnClick">change</button>
+  </div>
+
+  <script>
+    Vue.component('child-one', {
+      template: '<div v-once>child-one</div>'
+    })
+    Vue.component('child-two', {
+      template: '<div v-once>child-two</div>'
+    })
+
+    var vm = new Vue({
+      el: '#root',
+      data: {
+        type: 'child-one'
+      },
+      methods: {
+        handleBtnClick: function () {
+          this.type = (this.type === 'child-one' ? 'child-two' : 'child-one')
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

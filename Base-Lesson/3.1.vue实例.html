@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue实例</title>
+  <script src="./vue.js"></script>
+</head>
+
+<body>
+  <div id="root">
+    <!-- v-bind: 可以简写为: -->
+    <!-- v-on: 可以简写为@ -->
+    <!-- 插值表达式 -->
+    <div @click="handleClick">{{message}}</div>
+    <!-- 子组件 -->
+    <item></item>
+  </div>
+
+  <script>
+    // Vue 组件, 底层会转换为 Vue 实例
+    Vue.component('item', {
+      template: '<div>hello item</div>'
+    })
+
+
+    // 根实例, 入口
+    var vm = new Vue({
+      // el 指Vue接管的元素element
+      el: '#root',
+      // data 指元素所需的数据
+      data: {
+        message: 'hello world'
+      },
+      // methods 指元素所需的方法
+      methods: {
+        handleClick() {
+          alert('hello')
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

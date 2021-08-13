@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>4.3.参数校验与非props特性</title>
+  <script src="./vue.js"></script>
+</head>
+
+<body>
+  <div id="root">
+    <child content="hello"></child>
+  </div>
+
+  <script>
+    Vue.component('child', {
+      // props: ['content'], // 使用对象约束参数
+      props: {
+        // content: [Number, String]
+        content: {
+          type: String,
+          required: false, // 是否必须
+          default: 'default', // 默认值
+          validator: function (value) {
+            // 校验器,不符合则返回警告
+            return (value.length > 6)
+          }
+        }
+      },
+      template: '<div>{{content}}</div>'
+    })
+
+    var vm = new Vue({
+      el: '#root'
+
+    })
+  </script>
+</body>
+
+</html>

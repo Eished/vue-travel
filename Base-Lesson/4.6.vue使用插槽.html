@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>4.6.vue使用插槽.html</title>
+  <script src="./vue.js"></script>
+</head>
+
+<body>
+  <div id="root">
+    <child>
+      <!-- 旧语法 -->
+      <!-- <div class="header" slot="header">header</div>
+      <div class="header" slot="footer">footer</div> -->
+
+      <!-- template v-slot 具名插槽,新语法 -->
+      <template v-slot:header>
+        <div>这是头部</div>
+      </template>
+      <template v-slot:footer>
+        <div>这是底部</div>
+      </template>
+    </child>
+    <!-- 后备内容 -->
+    <submit-button>
+      Save
+    </submit-button>
+  </div>
+
+  <script>
+    Vue.component('child', {
+      // 自 2.6.0 起有所更新。已废弃的使用 slot attribute 的语法
+      template: `<div>
+        <slot name="header">9999</slot>
+        <div>content</div>
+        <slot name="footer"></slot>
+        </div>
+        `
+    })
+    // Vue 官方示例: 后备内容
+    Vue.component('submit-button', {
+      template: `
+        <button type="submit">
+          <slot>Submit</slot>
+        </button>
+        `
+    })
+
+    var vm = new Vue({
+      el: '#root'
+    })
+  </script>
+</body>
+
+</html>

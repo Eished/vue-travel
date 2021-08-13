@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>TodoList</title>
+  <script src="./vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <input type="text" v-model="inputValue">
+    <button v-on:click="handleBtnClick">提交</button>
+    <ul>
+      <!-- <li v-for="item in list">{{item}}</li> -->
+
+      <!-- v-bind: 可以简写为: -->
+      <!-- v-on: 可以简写为@ -->
+      <!-- @delete="handleItemDelete" 监听 $emit 传递的 delete 事件 -->
+      <todo-item :content="item" :index="index" v-for="(item,index) in list" @delete="handleItemDelete">
+      </todo-item>
+    </ul>
+  </div>
+  <script>
+    // // 全局组件
+    // Vue.component("TodoItem", {
+    //   props: ['content'], // 接收 v-bind:content 传递的值
+    //   template: "<li>{{content}}</li>" // 模板内使用字符串
+    // })
+
+    var TodoItem = {
+      // 父组件向子组件传值, v-bind: 发送和 props 接收
+      props: ['content', 'index'],
+      template: "<li @click='handleItemClick'>{{content}}</li>",
+      methods: {
+        handleItemClick: function () {
+          // $emit 向外触发事件; 父组件监听此事件传值
+          this.$emit("delete", this.index);
+        }
+      }
+    }
+
+    var app = new Vue({
+      el: '#app',
+      components: {
+        TodoItem: TodoItem // 注册局部组件
+      },
+      data: {
+        list: ['第一课的内容', '第二课的内容'],
+        inputValue: ''
+      },
+      methods: {
+        handleBtnClick: function () {
+          this.$data.list.unshift(this.inputValue)
+          this.inputValue = ''
+        },
+        handleItemDelete: function (index) {
+          this.list.splice(index, 1)
+        }
+      },
+    })
+  </script>
+
+</body>
+
+</html>

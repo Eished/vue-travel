@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>作用域插槽.html</title>
+  <script src="./vue.js"></script>
+</head>
+
+<body>
+  <div id="root">
+    <!-- 旧语法 -->
+    <child>
+      <template slot-scope="props">
+        <h1>{{props.item}}</h1>
+      </template>
+    </child>
+    <!-- 官方示例 -->
+    <!-- 绑定在 <slot> 元素上的 attribute 被称为插槽 prop。
+      现在在父级作用域中，我们可以使用带值的 v-slot 来定义
+      我们提供的插槽 prop 的名字： -->
+    <current-user>
+      <template #default="{user, person = { lastName:'Guest'}}">
+        {{ user.lastName }}-{{person.lastName}}
+      </template>
+      <!-- template 的作用域插槽名要与 slot 的 name 一致 -->
+      <template #other="{user, person = { lastName:'Guest'}}">
+        {{ user.lastName }}-{{person.lastName}}
+      </template>
+    </current-user>
+  </div>
+
+  <script>
+    // 旧语法
+    Vue.component('child', {
+      data: function () {
+        return {
+          list: [1, 2, 3, 4, 5]
+        }
+      },
+      template: `<div>
+          <slot v-for="item of list" :item="item">{{item}}</slot>
+        </div>
+        `
+    })
+
+    // 官方示例
+    // 为了让 user 在父级的插槽内容中可用，
+    // 我们可以将 user 作为 <slot> 元素的一个 attribute 绑定上去：
+    Vue.component('current-user', {
+      data: function () {
+        return {
+          user: {
+            lastName: 'Li',
+            firstName: 'Si'
+          }
+        }
+      },
+      template: `
+        <span>
+          <slot :user="user" name="default">{{user.firstName}}</slot>
+          <br>
+          <slot :user="user" name="other">{{user.firstName}}</slot>
+        </span>
+        `
+    })
+
+
+    var vm = new Vue({
+      el: '#root'
+    })
+  </script>
+</body>
+
+</html>
