@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="./vue.js"></script>
+    <title>Hello world</title>
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <div id="app2">
+      <button @click="handleClick">app2</button>
+      {{message}}
+    </div>
+    <div id="app3">
+      <button @click="handleClick">app3</button>
+      {{message}}
+    </div>
+    <div id="app4">
+      <button @click="handleClick">app4</button>
+      {{sharedState.message}}
+    </div>
+    <div id="app5">
+      <button @click="handleClick">app5</button>
+      {{sharedState.message}}
+    </div>
+
+    <script>
+      const store = {
+        debug: true,
+        state: {
+          message: '你好!',
+        },
+        setMessage(newValue) {
+          if (this.debug) {
+            console.log('setMessage triggered with', newValue)
+          }
+          this.state.message = newValue
+        },
+      }
+      var vmAA = new Vue({
+        el: '#app4',
+        data: {
+          privateState: {},
+          sharedState: store.state,
+        },
+        methods: {
+          handleClick() {
+            store.setMessage('world')
+          },
+        },
+      })
+
+      var vmBB = new Vue({
+        el: '#app5',
+        data: {
+          privateState: {},
+          sharedState: store.state,
+        },
+        methods: {
+          handleClick() {
+            store.setMessage('world')
+          },
+        },
+      })
+
+      var sourceOfTruth = {
+        message: 'hello',
+      }
+
+      var vmA = new Vue({
+        el: '#app2',
+        data: sourceOfTruth,
+        methods: {
+          handleClick() {
+            console.log(this.$data.message)
+            this.message = 'world'
+          },
+        },
+      })
+
+      var vmB = new Vue({
+        el: '#app3',
+        data: sourceOfTruth,
+        methods: {
+          handleClick() {
+            console.log(this.$root)
+          },
+        },
+      })
+
+      const app = new Vue({
+        el: '#app',
+        data: {},
+      })
+    </script>
+  </body>
+</html>

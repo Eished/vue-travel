@@ -9,13 +9,17 @@
   </head>
 
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <button @click="handleClick">点击</button>
+      <div v-for="item in list" :key="item.id">
+        {{ item.num }}
+      </div>
+    </div>
 
     <script>
-      const app = new Vue({
+      new Vue({
         el: '#app',
-        data: {},
-      });
+      })
     </script>
   </body>
 </html>

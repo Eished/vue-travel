@@ -1,47 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>3.5.getter和setter</title>
-  <script src="./vue.js"></script>
-  <style>
-    .activated {
-      color: red;
-    }
-  </style>
-</head>
-
-<body>
-  <div id="app">
-    <!-- v-if 判断是否渲染 -->
-    <div v-if="show ==='false'">This is false</div>
-    <div v-else-if="show==='true'">This is true</div>
-    <!-- v-if v-else v-else-if 必须紧贴在一起使用 -->
-    <div v-else>Bye</div>
-    <!-- v-show 渲染后设置样式,性能较高 -->
-    <div v-show="show">{{message + 'v-show'}}</div>
-
-    <!-- key 值指唯一的元素,渲染时就不会复用input输入的内容 -->
-    <div v-if="show ==='false'">
-      用户名: <input type="text" key="username">
-    </div>
-    <div v-if="show==='true'">
-      邮箱: <input type="text" key="mail">
-    </div>
-  </div>
-
-  <script>
-    var vm = new Vue({
-      el: '#app',
-      data: {
-        show: 'false',
-        message: "Hello World"
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>3.5.getter和setter</title>
+    <script src="./vue.js"></script>
+    <style>
+      .activated {
+        color: red;
       }
-    })
-  </script>
-</body>
+    </style>
+  </head>
 
+  <body>
+    <div id="app">
+      <!-- v-if 判断是否渲染 -->
+      <div v-if="show ==='false'">This is false</div>
+      <div v-else-if="show==='true'">This is true</div>
+      <!-- v-if v-else v-else-if 必须紧贴在一起使用 -->
+      <div v-else>Bye</div>
+      <!-- v-show 渲染后设置样式,性能较高 -->
+      <div v-show="show">{{message + 'v-show'}}</div>
+
+      <!-- key 值指唯一的元素,渲染时就不会复用input输入的内容 -->
+      <div v-if="show ==='false'">
+        用户名: <input type="text" key="username" />
+      </div>
+      <div v-if="show==='true'">邮箱: <input type="text" key="email" /></div>
+      <button @click="handleClick">submit</button>
+      <div>isShow = {{isShow}}</div>
+      <div v-show="isShow">isShow</div>
+    </div>
+
+    <script>
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          show: "false",
+          message: "Hello World",
+          isShow: true
+        },
+        methods: {
+          handleClick() {
+            if (this.show === "false") {
+              this.show = "true";
+              this.isShow = false;
+            } else {
+              this.isShow = true;
+              this.show = "false";
+            }
+          }
+        }
+      });
+    </script>
+  </body>
 </html>

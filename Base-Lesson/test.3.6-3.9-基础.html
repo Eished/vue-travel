@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="./vue.js"></script>
+    <title>Hello world</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <div :class="classObject">classObject</div>
+      <div class="a" v-bind:class="{ active: isActive }">active</div>
+      <div
+        class="c"
+        v-bind:class="{ active: isActive, 'text-danger': hasError }"
+      >
+        hasError
+      </div>
+      <my-component class="a">123</my-component>
+      <div v-bind:style="[styleObject,styleObject2]">style</div>
+
+      <!-- 组件vfor -->
+      <my-component
+        v-for="item in items"
+        :key="item.id"
+        :title="item.title"
+      ></my-component>
+      <br />
+      is=
+      <!-- is="my-component" -->
+      <li
+        is="my-component"
+        v-for="item in items"
+        :key="item.id+10"
+        :title="item.title"
+      ></li>
+    </div>
+    <ul id="example-1">
+      <li v-for="(item,index) in items" :key="item.message">
+        {{ item.message+" "+index}}
+      </li>
+    </ul>
+
+    <ul id="v-for-object" class="demo">
+      <li v-for="value in object">
+        {{ value }}
+      </li>
+
+      <div v-for="(value, name) in object">
+        {{ name }}: {{ value }}
+      </div>
+
+      <li v-for="n in evenNumbers">{{ n }}</li>
+
+      <template v-for="n in 10">{{ n }} </template>
+    </ul>
+
+    <script>
+      new Vue({
+        el: '#v-for-object',
+        data: {
+          object: {
+            title: 'How to do lists in Vue',
+            author: 'Jane Doe',
+            publishedAt: '2016-04-10',
+          },
+          numbers: [1, 2, 3, 4, 5],
+        },
+        computed: {
+          evenNumbers: function() {
+            return this.numbers.filter(function(number) {
+              return number % 2 === 0
+            })
+          },
+        },
+      })
+
+      new Vue({
+        el: '#example-1',
+        data: {
+          items: [
+            { message: 'Foo' },
+            { message: 'Bar' },
+            { message: 'car' },
+            { message: 'far' },
+          ],
+        },
+      })
+
+      Vue.component('my-component', {
+        template: `<li>{{ title }}</li>`,
+        props: ['title'],
+      })
+
+      new Vue({
+        el: '#app',
+        data: {
+          isActive: true,
+          hasError: false,
+          classObject2: {
+            active: true,
+            b: true,
+            'text-danger': false,
+          },
+          items: [
+            {
+              id: 1,
+              title: 'Do the dishes',
+            },
+            {
+              id: 2,
+              title: 'Take out the trash',
+            },
+            {
+              id: 3,
+              title: 'Mow the lawn',
+            },
+          ],
+          styleObject: {
+            color: 'red',
+            fontSize: '13px',
+          },
+          styleObject2: {
+            display: ['-webkit-box', '-ms-flexbox', 'flex'],
+          },
+        },
+        computed: {
+          classObject: function() {
+            return {
+              b: this.isActive && !this.error,
+              'text-danger': this.error && this.error.type === 'fatal',
+            }
+          },
+        },
+      })
+    </script>
+
+    <style lang="css">
+      .a {
+        background-color: rgb(163, 93, 8);
+      }
+      .b {
+        color: rgb(150, 126, 255);
+      }
+      .c {
+        background: rgb(137, 255, 126);
+      }
+    </style>
+  </body>
+</html>
